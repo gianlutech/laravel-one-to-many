@@ -7,17 +7,29 @@
         </ul>
     </div>
     @endif
-    @if($post)
-    <form action="{{route('admin.posts.update', $post->id)}}" method="POST" novalid>
+    @if($post->exists)
+    <form action="{{route('admin.posts.update', $post->id)}}" method="POST" novalidate>
+      @method('PUT')
     @else
-    <form action="{{route('admin.posts.store')}}" method="POST" novalid>
+    <form action="{{route('admin.posts.store')}}" method="POST" novalidate>
     @endif
         @csrf
 <div class="row">
-    <div class="col-12">
+    <div class="col-8">
      <div class="form-group">
        <label for="title">Titolo Post</label>
        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Titolo" required value="{{old('title', $post->title)}}">
+     </div>
+     <div class="col-4">
+       <div class="form-group">
+         <label for="category">Categoria</label>
+         <select class="form-control" id="category" name="category_id">
+            <option>Nessuna Categoria</option>
+            @foreach($categories as $category)
+            <option @if(old('category_id', $post->category_id) == $category->id) selected @endif value="{{$category->id}}">{{$category->label}}</option>
+            @endforeach
+        </select>
+       </div>
      </div>
 
     <div class="col-12">

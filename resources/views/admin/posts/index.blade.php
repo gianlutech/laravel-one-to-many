@@ -17,8 +17,8 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">slug</th>
+      <th scope="col">Titolo</th>
+      <th scope="col">Categoria</th>
       <th scope="col">Creato il </th>
       <th scope="col"></th>
     </tr>
@@ -27,8 +27,9 @@
       @forelse($posts as $post)
       <tr>
         <th scope="row">{{$post->id}}</th>
-        <td>{{$post->slug}}</td>
-        <td>{{$post->create_at}}</td>
+        <td>{{$post->title}}</td>
+        <td> @if($post->category) {{$post->category->label}} @else - @endif</td>
+        <td>{{$post->created_at}}</td>
         <td class="d-flex justify-content-end align-items-center">
             <a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-sm btn-primary mr-2">
             <i class="fa-solid fa-eye "></i>
